@@ -24,7 +24,7 @@ int fadeTimer;
     canvas.fill(255);
     
   
-  if (mousePressed) {
+  if (myMousePressed) {
       generateArcs();
     }
 
