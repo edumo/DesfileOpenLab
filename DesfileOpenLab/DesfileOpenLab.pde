@@ -24,7 +24,7 @@ Scene arcos = null;
 boolean myMousePressed = false;
 
 void setup() {
-  size(1024, 768);
+  size(1024, 768,P2D);
   frameRate(25);
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this, "192.168.1.255", 7777);
