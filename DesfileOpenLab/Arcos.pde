@@ -26,6 +26,7 @@ int fadeTimer;
   
   if (myMousePressed) {
       generateArcs();
+      myMousePressed = false;
     }
 
   //if(musicLoaded){
