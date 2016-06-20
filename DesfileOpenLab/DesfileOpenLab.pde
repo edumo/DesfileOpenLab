@@ -21,6 +21,8 @@ Scene vidaCoral;
 Scene currentScene = null;
 Scene arcos = null;
 
+boolean myMousePressed = false;
+
 void setup() {
   size(1024, 768);
   frameRate(25);
@@ -54,7 +56,7 @@ void draw() {
 
 void mousePressed() {
   /* create a new OscMessage with an address pattern, in this case /test. */
-  OscMessage myOscMessage = new OscMessage("/test");
+  OscMessage myOscMessage = new OscMessage("/mousePressed");
 
   /* add a value (an integer) to the OscMessage */
   myOscMessage.add(100);
@@ -82,13 +84,13 @@ void changeScene(int scene) {
 void keyPressed() {
 
   if (key == '1') {
-    currentScene = cosiendoTetuan;
+   // currentScene = cosiendoTetuan;
     changeScene(1);
   } else if (key == '2') {
-    currentScene = vidaCoral;
+   // currentScene = vidaCoral;
     changeScene(2);
   } else if (key == '3') {
-    currentScene = clother;
+   // currentScene = clother;
     changeScene(3);
   }
 }
@@ -108,6 +110,10 @@ void oscEvent(OscMessage theOscMessage) {
     } else if (theOscMessage.get(0).intValue() == 3) {
       currentScene = clother;
     }
+  }
+  
+  if (theOscMessage.addrPattern().contains("mousePressed")) {
+    myMousePressed = true;
   }
   println(" typetag: "+theOscMessage.typetag());
 }

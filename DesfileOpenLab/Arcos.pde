@@ -166,8 +166,9 @@ void analyzeVolume(float a) {
   // fake beat listener
   vol=a;
   //if(vol-pvol>25) generateArcs();
-  if (mousePressed) {
+  if (myMousePressed) {
     generateArcs();
+    myMousePressed = false;
   }
   pvol=vol;
 }
