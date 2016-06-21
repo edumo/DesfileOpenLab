@@ -1,5 +1,5 @@
- class Coral implements Scene{
-   
+class Coral implements Scene {
+
   ArrayList<PImage> imgs = new ArrayList(); 
 
   public void load() {
@@ -11,17 +11,17 @@
   }
 
   public void myDraw(PGraphics canvas) {
-    
+
     canvas.fill(255);
     canvas.textAlign(CENTER);
     canvas.textSize(48);
-    canvas.text("Coral",width/2,height/2);
-    
+    canvas.text("Coral", width/2, height/2);
   }
-  
-  public void action(OscMessage theOscMessage){
-    
+
+  public void action(OscMessage theOscMessage) {
   }
-    
-    
+  void mousePressed() {
+  }
+  void keyPressed(int key) {
+  }
 }

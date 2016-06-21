@@ -19,13 +19,17 @@ Scene clother;
 Scene vidaCoral;
 
 Scene currentScene = null;
+Scene currentOverlay = null;
+
 Scene arcos = null;
+Scene particulas = null;
+
 
 boolean myMousePressed = false;
 
 void setup() {
-  size(1024, 768,P2D);
-  frameRate(25);
+  size(1024, 768, P2D);
+  frameRate(24);
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this, "192.168.1.255", 7777);
 
@@ -41,16 +45,21 @@ void setup() {
   vidaCoral = new Coral();
   vidaCoral.load();
 
+  particulas = new Particulas1();
+  particulas.load();
+
   currentScene = cosiendoTetuan;
+  currentOverlay = particulas;
 }
 
 
 void draw() {
+
   background(100);
 
   currentScene.myDraw(g);
 
-  arcos.myDraw(g);
+  currentOverlay.myDraw(g);
 }
 
 
@@ -84,15 +93,41 @@ void changeScene(int scene) {
 void keyPressed() {
 
   if (key == '1') {
-   // currentScene = cosiendoTetuan;
+    // currentScene = cosiendoTetuan;
     changeScene(1);
   } else if (key == '2') {
-   // currentScene = vidaCoral;
+    // currentScene = vidaCoral;
     changeScene(2);
   } else if (key == '3') {
-   // currentScene = clother;
+    // currentScene = clother;
     changeScene(3);
   }
+  
+  
+   if (key == 'q') {
+    // currentScene = cosiendoTetuan;
+   currentScene.keyPressed('1');
+    currentOverlay.keyPressed('1');
+  
+  } else if (key == 'w') {
+    // currentScene = vidaCoral;
+   currentScene.keyPressed('2');
+    currentOverlay.keyPressed('2');
+  
+  } else if (key == 'e') {
+    // currentScene = clother;
+    currentScene.keyPressed('3');
+    currentOverlay.keyPressed('3');
+  
+  } else if (key == 'r') {
+    // currentScene = clother;
+    currentScene.keyPressed('4');
+    currentOverlay.keyPressed('4');
+  
+  }
+  
+   
+  
 }
 
 
@@ -111,9 +146,16 @@ void oscEvent(OscMessage theOscMessage) {
       currentScene = clother;
     }
   }
-  
+
   if (theOscMessage.addrPattern().contains("mousePressed")) {
-    myMousePressed = true;
+    currentScene.mousePressed();
+    currentOverlay.mousePressed();
   }
+  
+  if (theOscMessage.addrPattern().contains("keyPressed")) {
+    currentScene.keyPressed((char)theOscMessage.get(0).intValue());
+    currentOverlay.keyPressed((char)theOscMessage.get(0).intValue());
+  }
+  
   println(" typetag: "+theOscMessage.typetag());
 }

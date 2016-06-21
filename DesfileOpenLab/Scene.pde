@@ -5,4 +5,8 @@ public interface Scene{
    void load();
    
    void action(OscMessage theOscMessage);
+   
+   void mousePressed() ;
+   
+   void keyPressed(int key);
 }

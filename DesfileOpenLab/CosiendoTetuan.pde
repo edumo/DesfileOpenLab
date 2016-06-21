@@ -1,6 +1,6 @@
 
- class CosiendoTetuan implements Scene{
-   
+class CosiendoTetuan implements Scene {
+
   ArrayList<PImage> imgs = new ArrayList(); 
 
   public void load() {
@@ -12,17 +12,18 @@
   }
 
   public void myDraw(PGraphics canvas) {
-    
+
     canvas.fill(255);
     canvas.textAlign(CENTER);
     canvas.textSize(48);
-    canvas.text("CosiendoTetuan",width/2,height/2);
+    canvas.text("CosiendoTetuan", width/2, height/2);
+  }
+
+  public void action(OscMessage theOscMessage) {
+  }
+  void mousePressed() {
+  }
+  void keyPressed(int key){
     
   }
-  
-  public void action(OscMessage theOscMessage){
-    
-  }
-    
-    
 }
