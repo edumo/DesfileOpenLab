@@ -29,10 +29,10 @@ Scene arcos = null;
 Scene particulas = null;
 
 
-boolean myMousePressed = false;
+
 
 void setup() {
-  size(1024, 768, P2D);
+  size(1024, 768);
   frameRate(24);
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this, "192.168.1.255", 7777);
@@ -63,49 +63,32 @@ void draw() {
 
   currentScene.myDraw(g);
 
-  currentOverlay.myDraw(g);
+  if (currentOverlay != null)
+    currentOverlay.myDraw(g);
 }
-
 
 void mousePressed() {
   /* create a new OscMessage with an address pattern, in this case /test. */
   OscMessage myOscMessage = new OscMessage("/mousePressed");
-
-  /* add a value (an integer) to the OscMessage */
   myOscMessage.add(100);
-
-  /* send the OscMessage to the multicast group. 
-   * the multicast group netAddress is the default netAddress, therefore
-   * you dont need to specify a NetAddress to send the osc message.
-   */
   oscP5.send(myOscMessage);
 }
 
-void changeScene(int scene) {
-  OscMessage myOscMessage = new OscMessage("/scene");
-
-  /* add a value (an integer) to the OscMessage */
-  myOscMessage.add(scene);
-
-  /* send the OscMessage to the multicast group. 
-   * the multicast group netAddress is the default netAddress, therefore
-   * you dont need to specify a NetAddress to send the osc message.
-   */
-  oscP5.send(myOscMessage);
-}
-
-void keyPressedScene(int c) {
+void keyPressedScene(char c) {
   OscMessage myOscMessage = new OscMessage("/keyPressed");
   myOscMessage.add(c);
   oscP5.send(myOscMessage);
 }
 
 void keyPressed() {
-
-
-
   keyPressedScene(key);
 }
+
+/*void changeScene(int scene) {
+  OscMessage myOscMessage = new OscMessage("/scene");
+  myOscMessage.add(scene);
+  oscP5.send(myOscMessage);
+}*/
 
 
 /* incoming osc message are forwarded to the oscEvent method. */
@@ -113,39 +96,36 @@ void oscEvent(OscMessage theOscMessage) {
   /* print the address pattern and the typetag of the received OscMessage */
   print("### received an osc message.");
   print(" addrpattern: "+theOscMessage.addrPattern());
-  if (theOscMessage.addrPattern().contains("scene")) {
-
-    if (theOscMessage.get(0).intValue() == 1) {
-      currentScene = cosiendoTetuan;
-    } else if (theOscMessage.get(0).intValue() == 2) {
-      currentScene = vidaCoral;
-    } else if (theOscMessage.get(0).intValue() == 3) {
-      currentScene = clother;
-    }
-  }
 
   if (theOscMessage.addrPattern().contains("mousePressed")) {
     currentScene.mousePressed();
-    currentOverlay.mousePressed();
+    if (currentOverlay != null)
+      currentOverlay.mousePressed(  );
   }
 
   if (theOscMessage.addrPattern().contains("keyPressed")) {
 
-    int param = theOscMessage.get(0).intValue();
+    int param = theOscMessage.get(0).charValue();
 
     if (param == '1') {
-      // currentScene = cosiendoTetuan;
-      changeScene(1);
+       currentScene = cosiendoTetuan;
     } else if (param == '2') {
-      // currentScene = vidaCoral;
-      changeScene(2);
+       currentScene = vidaCoral;
     } else if (param == '3') {
+       currentScene = clother;
+    } else if (param == '4') {
       // currentScene = clother;
-      changeScene(3);
+      currentOverlay = particulas;
+    } else if (param == '5') {
+      currentScene = clother;
+      arcos.mousePressed();
+    } else if (param == '6') {
+      currentOverlay = null;
     }
 
     currentScene.keyPressed((char)param);
-    currentOverlay.keyPressed((char)param);
+    if (currentOverlay != null)
+      currentOverlay.keyPressed((char)param);
   }
 
   println(" typetag: "+theOscMessage.typetag());

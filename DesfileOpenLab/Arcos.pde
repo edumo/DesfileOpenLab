@@ -8,7 +8,7 @@ class Arcos implements Scene {
   boolean rnd;
   boolean musicLoaded=false;
   int fadeTimer;
-
+boolean myMousePressed2 = false;
   ArrayList<PImage> imgs = new ArrayList(); 
 
   public void load() {
@@ -24,9 +24,9 @@ class Arcos implements Scene {
     canvas.fill(255);
 
 
-    if (myMousePressed) {
+    if (myMousePressed2) {
       generateArcs();
-      myMousePressed = false;
+      myMousePressed2 = false;
     }
 
     //if(musicLoaded){
@@ -163,10 +163,7 @@ class Arcos implements Scene {
     // fake beat listener
     vol=a;
     //if(vol-pvol>25) generateArcs();
-    if (myMousePressed) {
-      generateArcs();
-      myMousePressed = false;
-    }
+   
     pvol=vol;
   }
 
@@ -328,6 +325,7 @@ class Arcos implements Scene {
     }
   }
   void mousePressed() {
+    myMousePressed2 = true;
   }
 
   void keyPressed(int key) {
