@@ -104,6 +104,8 @@ class Particulas1 implements Scene {
         mouseX = 1;
       }
 
+       sColor = map(x, 0, FIELDWIDTH, 150, 255);
+
       d=(noise(id, x/mouseY, y/mouseY)-0.5)*mouseX;  
 
 

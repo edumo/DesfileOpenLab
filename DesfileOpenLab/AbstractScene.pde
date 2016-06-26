@@ -30,7 +30,8 @@ class AbstractScene implements Scene {
 
   public void myDraw(PGraphics canvas) {
 
-     background(selectedColor.toARGB());
+     fill(selectedColor.toARGB(),20);
+     rect(0,0,width,height);
   }
 
   public void action(OscMessage theOscMessage) {

@@ -16,6 +16,8 @@ import toxi.color.theory.*;
 import toxi.util.datatypes.*;
 import java.util.*;
 
+boolean bg = true;
+
 OscP5 oscP5;
 
 Scene cosiendoTetuan;
@@ -59,7 +61,8 @@ void setup() {
 
 void draw() {
 
-  background(100);
+  if (bg)
+    background(100);
 
   currentScene.myDraw(g);
 
@@ -93,10 +96,10 @@ void keyPressed() {
 }
 
 /*void changeScene(int scene) {
-  OscMessage myOscMessage = new OscMessage("/scene");
-  myOscMessage.add(scene);
-  oscP5.send(myOscMessage);
-}*/
+ OscMessage myOscMessage = new OscMessage("/scene");
+ myOscMessage.add(scene);
+ oscP5.send(myOscMessage);
+ }*/
 
 
 /* incoming osc message are forwarded to the oscEvent method. */
@@ -110,10 +113,10 @@ void oscEvent(OscMessage theOscMessage) {
     if (currentOverlay != null)
       currentOverlay.mousePressed(  );
   }
-  
+
   if (theOscMessage.addrPattern().contains("mouseMoved")) {
     //currentScene.mousePressed();
-    
+
     mouseX = (int)(theOscMessage.get(0).floatValue()*width);
     mouseY = (int)(theOscMessage.get(1).floatValue()*height);
     //if (currentOverlay != null)
@@ -125,11 +128,11 @@ void oscEvent(OscMessage theOscMessage) {
     int param = theOscMessage.get(0).charValue();
 
     if (param == '1') {
-       currentScene = cosiendoTetuan;
+      currentScene = cosiendoTetuan;
     } else if (param == '2') {
-       currentScene = vidaCoral;
+      currentScene = vidaCoral;
     } else if (param == '3') {
-       currentScene = clother;
+      currentScene = clother;
     } else if (param == '4') {
       // currentScene = clother;
       currentOverlay = particulas;
@@ -138,6 +141,8 @@ void oscEvent(OscMessage theOscMessage) {
       arcos.mousePressed();
     } else if (param == '6') {
       currentOverlay = null;
+    } else if (param == 'b') {
+      bg = !bg;
     }
 
     currentScene.keyPressed((char)param);
