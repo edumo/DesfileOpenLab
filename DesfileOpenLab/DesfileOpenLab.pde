@@ -74,6 +74,14 @@ void mousePressed() {
   oscP5.send(myOscMessage);
 }
 
+void mouseMoved() {
+  /* create a new OscMessage with an address pattern, in this case /test. */
+  OscMessage myOscMessage = new OscMessage("/mouseMoved");
+  myOscMessage.add(mouseX/(float)width);
+  myOscMessage.add(mouseY/(float)height);
+  oscP5.send(myOscMessage);
+}
+
 void keyPressedScene(char c) {
   OscMessage myOscMessage = new OscMessage("/keyPressed");
   myOscMessage.add(c);
@@ -102,6 +110,15 @@ void oscEvent(OscMessage theOscMessage) {
     if (currentOverlay != null)
       currentOverlay.mousePressed(  );
   }
+  
+  if (theOscMessage.addrPattern().contains("mouseMoved")) {
+    //currentScene.mousePressed();
+    
+    mouseX = (int)(theOscMessage.get(0).floatValue()*width);
+    mouseY = (int)(theOscMessage.get(1).floatValue()*height);
+    //if (currentOverlay != null)
+    //  currentOverlay.mousePressed(  );
+  }
 
   if (theOscMessage.addrPattern().contains("keyPressed")) {
 
@@ -116,8 +133,8 @@ void oscEvent(OscMessage theOscMessage) {
     } else if (param == '4') {
       // currentScene = clother;
       currentOverlay = particulas;
-    } else if (param == '5') {
-      currentScene = clother;
+    } else if (param == '7') {
+      currentOverlay = arcos;
       arcos.mousePressed();
     } else if (param == '6') {
       currentOverlay = null;
