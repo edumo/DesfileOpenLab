@@ -1,4 +1,4 @@
-class Coral implements Scene {
+class Coral extends AbstractScene implements Scene {
 
   ArrayList<PImage> imgs = new ArrayList(); 
 

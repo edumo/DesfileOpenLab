@@ -12,7 +12,7 @@ class Arcos implements Scene {
   ArrayList<PImage> imgs = new ArrayList(); 
 
   public void load() {
-
+    
     for (int i = 0; i<4; i++) {
       PImage img = loadImage("cosiendo-tetuan-1.jpg");
       imgs.add(img);

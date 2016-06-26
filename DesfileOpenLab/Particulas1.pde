@@ -64,14 +64,14 @@ class Particulas1 implements Scene {
   }
 
   void keyPressed(int key) {
-    if (key == '1') {
+    if (key == 'q') {
       stateV = UP;
-    } else if (key == '2') {
+    } else if (key == 'w') {
       stateV = DOWN;
     }
-    if (key == '3') {
+    if (key == 'e') {
       stateH = LEFT;
-    } else if (key == '4') {
+    } else if (key == 'r') {
       stateH = RIGHT;
     }
   }

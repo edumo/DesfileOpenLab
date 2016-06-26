@@ -1,4 +1,4 @@
-class Clother implements Scene {
+class Clother extends AbstractScene implements Scene {
 
   ArrayList<PImage> imgs = new ArrayList(); 
 
@@ -12,6 +12,7 @@ class Clother implements Scene {
 
   public void myDraw(PGraphics canvas) {
 
+    
     canvas.fill(255);
     canvas.textAlign(CENTER);
     canvas.textSize(48);

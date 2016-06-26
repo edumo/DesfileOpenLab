@@ -11,6 +11,10 @@
 
 import oscP5.*;
 import netP5.*;
+import toxi.color.*;
+import toxi.color.theory.*;
+import toxi.util.datatypes.*;
+import java.util.*;
 
 OscP5 oscP5;
 
@@ -90,44 +94,17 @@ void changeScene(int scene) {
   oscP5.send(myOscMessage);
 }
 
+void keyPressedScene(int c) {
+  OscMessage myOscMessage = new OscMessage("/keyPressed");
+  myOscMessage.add(c);
+  oscP5.send(myOscMessage);
+}
+
 void keyPressed() {
 
-  if (key == '1') {
-    // currentScene = cosiendoTetuan;
-    changeScene(1);
-  } else if (key == '2') {
-    // currentScene = vidaCoral;
-    changeScene(2);
-  } else if (key == '3') {
-    // currentScene = clother;
-    changeScene(3);
-  }
-  
-  
-   if (key == 'q') {
-    // currentScene = cosiendoTetuan;
-   currentScene.keyPressed('1');
-    currentOverlay.keyPressed('1');
-  
-  } else if (key == 'w') {
-    // currentScene = vidaCoral;
-   currentScene.keyPressed('2');
-    currentOverlay.keyPressed('2');
-  
-  } else if (key == 'e') {
-    // currentScene = clother;
-    currentScene.keyPressed('3');
-    currentOverlay.keyPressed('3');
-  
-  } else if (key == 'r') {
-    // currentScene = clother;
-    currentScene.keyPressed('4');
-    currentOverlay.keyPressed('4');
-  
-  }
-  
-   
-  
+
+
+  keyPressedScene(key);
 }
 
 
@@ -151,11 +128,25 @@ void oscEvent(OscMessage theOscMessage) {
     currentScene.mousePressed();
     currentOverlay.mousePressed();
   }
-  
+
   if (theOscMessage.addrPattern().contains("keyPressed")) {
-    currentScene.keyPressed((char)theOscMessage.get(0).intValue());
-    currentOverlay.keyPressed((char)theOscMessage.get(0).intValue());
+
+    int param = theOscMessage.get(0).intValue();
+
+    if (param == '1') {
+      // currentScene = cosiendoTetuan;
+      changeScene(1);
+    } else if (param == '2') {
+      // currentScene = vidaCoral;
+      changeScene(2);
+    } else if (param == '3') {
+      // currentScene = clother;
+      changeScene(3);
+    }
+
+    currentScene.keyPressed((char)param);
+    currentOverlay.keyPressed((char)param);
   }
-  
+
   println(" typetag: "+theOscMessage.typetag());
 }
