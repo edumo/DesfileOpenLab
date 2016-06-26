@@ -30,7 +30,7 @@ class AbstractScene implements Scene {
 
   public void myDraw(PGraphics canvas) {
 
-     fill(selectedColor.toARGB(),20);
+     fill(selectedColor.toARGB(),40);
      rect(0,0,width,height);
   }
 

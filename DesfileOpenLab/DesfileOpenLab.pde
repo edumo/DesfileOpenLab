@@ -141,8 +141,10 @@ void oscEvent(OscMessage theOscMessage) {
       arcos.mousePressed();
     } else if (param == '6') {
       currentOverlay = null;
-    } else if (param == 'b') {
-      bg = !bg;
+    } else if (param == 'B') {
+      bg = true;
+    }else if (param == 'b') {
+      bg = false;
     }
 
     currentScene.keyPressed((char)param);

@@ -122,7 +122,7 @@ class Particulas1 implements Scene {
         x+=cos(radians(d))*s*2;
 
       // strokeWeight((maxLen - len)*strokeAmount);
-      fill(sColor, 80, 90);
+      fill(sColor, 200, 90);
       stroke(26, 0, 100);
       strokeWeight(0);
       rect(xp, yp, (maxLen - len)*strokeAmount, (maxLen - len)*strokeAmount);
