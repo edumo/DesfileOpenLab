@@ -16,6 +16,12 @@ import toxi.color.theory.*;
 import toxi.util.datatypes.*;
 import java.util.*;
 
+import de.looksgood.ani.*;
+import de.looksgood.ani.easing.*;
+
+import geomerative.*;
+
+
 boolean bg = true;
 
 OscP5 oscP5;
@@ -39,6 +45,10 @@ void setup() {
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this, "192.168.1.255", 7777);
 
+ RG.init(this);
+ 
+   
+  Ani.init(this);
   cosiendoTetuan = new CosiendoTetuan();
   cosiendoTetuan.load();
 
