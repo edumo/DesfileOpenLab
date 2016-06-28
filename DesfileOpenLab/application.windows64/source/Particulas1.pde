@@ -33,28 +33,25 @@ class Particulas1 implements Scene {
 
   public void myDraw(PGraphics canvas) {
 
-    canvas.pushMatrix();
-     canvas.noStroke();
-     canvas.fill(0, fadeAmount);
-     canvas.rect(0, 0, width, height);//fade background
+    noStroke();
+    fill(0, fadeAmount);
+    rect(0, 0, width, height);//fade background
 
-     canvas.translate((width- FIELDWIDTH)/2, (height- FIELDHEIGHT)/2);
+    translate((width- FIELDWIDTH)/2, (height- FIELDHEIGHT)/2);
     for (int i=0; i<numParticles; i++) {
       particles[i].update();//render particles
     } 
 
-     canvas.fill(255);
+    fill(255);
     if (frameCount % 50 == 0)
       println(""+frameRate, 100, 100);
-      
-    canvas.popMatrix();
   }
 
   void randomize() {
 
     //numParticles =(int) random(50,500);
     fadeAmount = random(.5, 20);
-    maxLen = random(130, 200);
+    maxLen = random(30, 200);
     strokeAmount = random(0.2, 0.6);
 
     for (int i=0; i<numParticles; i++) {

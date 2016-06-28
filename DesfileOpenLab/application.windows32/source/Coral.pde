@@ -13,13 +13,14 @@ class Coral extends AbstractScene implements Scene {
   public void load() {
 
     super.load();
+
+    loadMyShape("legosmile.svg");
+    loadMyShape("cookiemouth.svg");
+    loadMyShape("princestyle.svg");
+    loadMyShape("bot2.svg");
     loadMyShape("bot5.svg");
     loadMyShape("shopping-girls.svg");
-    loadMyShape("legosmile.svg");
     loadMyShape("Andy_Warhol.svg");
-    loadMyShape("princestyle.svg");
-    loadMyShape("cookiemouth.svg");
-    loadMyShape("bot2.svg");
   }
 
 
@@ -49,9 +50,9 @@ class Coral extends AbstractScene implements Scene {
   void mousePressed() {
 
     super.mousePressed();
-
+    
     if (state < 2) {
-      Ani.to(this, 3.5, "state", width);
+      Ani.to(this, 1.5, "state", width);
       grp = shapes.get(current);
       current++;
       if (current >= shapes.size()) {

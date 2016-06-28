@@ -93,7 +93,7 @@ boolean myMousePressed2 = false;
 
       fadeTimer++;
       if (fadeTimer>300) {
-      //  fadeOut(canvas);
+        fadeOut(canvas);
       }
     } else {
       canvas.fill(255);
@@ -279,6 +279,8 @@ boolean myMousePressed2 = false;
     }
   }
 
+
+
   class Trait {
     int id, swTarget, longueurTraitTarget, transpTarget;
     float sw, longueurTrait, transp;
@@ -289,7 +291,7 @@ boolean myMousePressed2 = false;
       swTarget=_sw;
       c=_c;
       longueurTraitTarget=_longueurTrait;
-      transpTarget=55;
+      transpTarget=255;
     }
 
     void draw(PGraphics canvas) {

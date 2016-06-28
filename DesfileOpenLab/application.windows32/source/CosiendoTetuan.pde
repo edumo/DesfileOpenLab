@@ -94,7 +94,7 @@ class CosiendoTetuan extends AbstractScene implements Scene {
     for (int k=0; k<3; k++) {
       makeCrack();
     }
-    canvas.background(0);
+    canvas.background(255);
   }
 
 
@@ -189,42 +189,38 @@ class CosiendoTetuan extends AbstractScene implements Scene {
     }
 
     void move(PGraphics canvas) {
-    float size = 0.2f + mouseX/(float)width;
-        
-        x += (0.82f + size*2) * cos(t * PI / 180);
-        y += (0.82f + size*2) * sin(t * PI / 180);
+      // continue cracking
+      x+=0.42*cos(t*PI/180);
+      y+=0.42*sin(t*PI/180); 
 
-        // bound check
-        float z = 0.33f;
-        int cx = PApplet.parseInt(x + random(-z, z)); // add fuzz
-        int cy = PApplet.parseInt(y + random(-z, z));
+      // bound check
+      float z = 0.33;
+      int cx = int(x+random(-z, z));  // add fuzz
+      int cy = int(y+random(-z, z));
 
-        // draw sand painter
-        regionColor();
+      // draw sand painter
+      regionColor();
 
-        // draw black crack
-          canvas.strokeWeight(0);
-        canvas.stroke(255, 185);
-        canvas.fill(255,0,0,200);
-        //canvas.point(x + random(-z, z), y + random(-z, z));
-        canvas.ellipse(x + random(-z, z), y + random(-z, z),size*3,size*3);
+      // draw black crack
+      canvas.stroke(0, 85);
+      canvas.point(x+random(-z, z), y+random(-z, z));
 
-        if ((cx >= 0) && (cx < dimx) && (cy >= 0) && (cy < dimy)) {
-          // safe to check
-          if ((cgrid[cy * dimx + cx] > 10000)
-              || (abs(cgrid[cy * dimx + cx] - t) < 5)) {
-            // continue cracking
-            cgrid[cy * dimx + cx] = PApplet.parseInt(t);
-          } else if (abs(cgrid[cy * dimx + cx] - t) > 2) {
-            // crack encountered (not self), stop cracking
-            findStart();
-            makeCrack();
-          }
-        } else {
-          // out of bounds, stop cracking
+
+      if ((cx>=0) && (cx<dimx) && (cy>=0) && (cy<dimy)) {
+        // safe to check
+        if ((cgrid[cy*dimx+cx]>10000) || (abs(cgrid[cy*dimx+cx]-t)<5)) {
+          // continue cracking
+          cgrid[cy*dimx+cx]=int(t);
+        } else if (abs(cgrid[cy*dimx+cx]-t)>2) {
+          // crack encountered (not self), stop cracking
           findStart();
           makeCrack();
         }
+      } else {
+        // out of bounds, stop cracking
+        findStart();
+        makeCrack();
+      }
     }
 
     void regionColor() {

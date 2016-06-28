@@ -20,7 +20,7 @@ import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 
 import geomerative.*;
-import ddf.minim.*;
+
 
 boolean bg = true;
 
@@ -32,13 +32,11 @@ Scene vidaCoral;
 
 Scene currentScene = null;
 Scene currentOverlay = null;
-Scene currentText = null;
 
 Scene arcos = null;
 Scene particulas = null;
 
-Minim minim; //CREATE A NEW SOUND OBJECT
-AudioInput in;
+
 
 
 void setup() {
@@ -48,8 +46,7 @@ void setup() {
   oscP5 = new OscP5(this, "192.168.1.255", 7777);
 
  RG.init(this);
-  minim = new Minim(this);
-  in = minim.getLineIn();
+ 
    
   Ani.init(this);
   cosiendoTetuan = new CosiendoTetuan();
@@ -69,9 +66,6 @@ void setup() {
 
   currentScene = cosiendoTetuan;
   currentOverlay = particulas;
-  
-  currentText = new Texto();
-  currentText.load();
 }
 
 
@@ -84,8 +78,6 @@ void draw() {
 
   if (currentOverlay != null)
     currentOverlay.myDraw(g);
-    
-  currentText.myDraw(g);
 }
 
 void mousePressed() {
@@ -169,8 +161,6 @@ void oscEvent(OscMessage theOscMessage) {
     currentScene.keyPressed((char)param);
     if (currentOverlay != null)
       currentOverlay.keyPressed((char)param);
-      
-    currentText.keyPressed((char)param);
   }
 
   println(" typetag: "+theOscMessage.typetag());
