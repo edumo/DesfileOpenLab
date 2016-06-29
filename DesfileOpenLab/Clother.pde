@@ -16,7 +16,7 @@ class Clother extends AbstractScene implements Scene {
     canvas.fill(255);
     canvas.textAlign(CENTER);
     canvas.textSize(48);
-    canvas.text("Clother", width/2, height/2);
+    //canvas.text("Clother", width/2, height/2);
   }
 
   public void action(OscMessage theOscMessage) {

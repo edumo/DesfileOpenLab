@@ -28,6 +28,7 @@ class Coral extends AbstractScene implements Scene {
     grp = RG.centerIn(grp, g);
     shapes.add(grp);
   }
+  
   public void myDraw(PGraphics canvas) {
 
     super.myDraw(canvas);
@@ -41,7 +42,7 @@ class Coral extends AbstractScene implements Scene {
 
     RG.shape(splittedGroups[first]);
     canvas.popMatrix();
-    canvas.text("Coral", width/2, height/2);
+    //canvas.text("Coral", width/2, height/2);
   }
 
   public void action(OscMessage theOscMessage) {

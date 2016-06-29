@@ -54,7 +54,7 @@ class CosiendoTetuan extends AbstractScene implements Scene {
    // canvas.rect(0, 0, 150, 20);
     canvas.fill(0);
     canvas.text(frameRate, 10, 10);
-    canvas.text("Cosiendo tetuan", width/2, height/2);
+   // canvas.text("Cosiendo tetuan", width/2, height/2);
   }
 
   public void action(OscMessage theOscMessage) {
