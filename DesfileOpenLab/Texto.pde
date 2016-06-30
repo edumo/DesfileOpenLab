@@ -33,7 +33,8 @@ class Texto implements Scene {
 
     canvas.translate(width/2, height/3);
 
-    float soundLevel = in.mix.level(); //GET OUR AUDIO IN LEVEL
+    float soundLevel = soundLevelOsc; //GET OUR AUDIO IN LEVEL
+   
     soundLevelTarget = soundLevelTarget + (soundLevel - soundLevelTarget) * 0.15f;
     RCommand.setSegmentLength(soundLevelTarget*1500);
     RCommand.setSegmentator(RCommand.UNIFORMLENGTH);

@@ -40,6 +40,8 @@ Scene particulas = null;
 Minim minim; //CREATE A NEW SOUND OBJECT
 AudioInput in;
 
+boolean vjInstance = false;
+float soundLevelOsc = 0;
 
 void setup() {
   size(1024, 768);
@@ -47,10 +49,10 @@ void setup() {
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this, "192.168.1.255", 7777);
 
- RG.init(this);
+  RG.init(this);
   minim = new Minim(this);
   in = minim.getLineIn();
-   
+
   Ani.init(this);
   cosiendoTetuan = new CosiendoTetuan();
   cosiendoTetuan.load();
@@ -69,7 +71,7 @@ void setup() {
 
   currentScene = cosiendoTetuan;
   //currentOverlay = particulas;
-  
+
   currentText = new Texto();
   currentText.load();
 }
@@ -84,8 +86,15 @@ void draw() {
 
   if (currentOverlay != null)
     currentOverlay.myDraw(g);
-    
+
   currentText.myDraw(g);
+
+
+  if (vjInstance && frameCount%3==0) {
+    OscMessage myOscMessage = new OscMessage("/soundLevel");
+    myOscMessage.add(in.mix.level());
+    oscP5.send(myOscMessage);
+  }
 }
 
 void mousePressed() {
@@ -111,6 +120,10 @@ void keyPressedScene(char c) {
 
 void keyPressed() {
   keyPressedScene(key);
+  
+  if(key == 'V'){
+   vjInstance = true; 
+  }
 }
 
 /*void changeScene(int scene) {
@@ -131,6 +144,10 @@ void oscEvent(OscMessage theOscMessage) {
     if (currentOverlay != null)
       currentOverlay.mousePressed(  );
   }
+  
+  if (theOscMessage.addrPattern().contains("soundLevel")) {
+   soundLevelOsc = theOscMessage.get(0).floatValue();
+  }
 
   if (theOscMessage.addrPattern().contains("mouseMoved")) {
     //currentScene.mousePressed();
@@ -146,19 +163,19 @@ void oscEvent(OscMessage theOscMessage) {
     int param = theOscMessage.get(0).charValue();
 
     if (param == '0') {
-       currentOverlay = null;
-       
-    }else if (param == '1') {
+      currentOverlay = null;
+    } else if (param == '1') {
       currentScene = cosiendoTetuan;
-       currentScene.mousePressed();
+      currentScene.mousePressed();
       bg = false;
       currentOverlay = null;
     } else if (param == '2') {
       currentScene = vidaCoral;
+      bg = false;
       currentOverlay = particulas;
     } else if (param == '3') {
       currentScene = clother;
-       bg = true;
+      bg = false;
     } else if (param == '4') {
       // currentScene = clother;
       currentOverlay = particulas;
@@ -169,16 +186,17 @@ void oscEvent(OscMessage theOscMessage) {
       currentOverlay = null;
     } else if (param == 'B') {
       bg = true;
-    }else if (param == 'b') {
+    } else if (param == 'b') {
       bg = false;
     }
 
     currentScene.keyPressed((char)param);
     if (currentOverlay != null)
       currentOverlay.keyPressed((char)param);
-      
+
     currentText.keyPressed((char)param);
   }
 
   println(" typetag: "+theOscMessage.typetag());
 }
+

@@ -15,10 +15,10 @@ class Coral extends AbstractScene implements Scene {
     super.load();
     loadMyShape("bot5.svg");
     loadMyShape("shopping-girls.svg");
-    loadMyShape("legosmile.svg");
+    loadMyShape("old-sewing-machine.svg");
     loadMyShape("Andy_Warhol.svg");
     loadMyShape("princestyle.svg");
-    loadMyShape("cookiemouth.svg");
+   // loadMyShape("cookiemouth.svg");
     loadMyShape("bot2.svg");
   }
 
@@ -26,12 +26,16 @@ class Coral extends AbstractScene implements Scene {
   void loadMyShape(String path) {
     grp = RG.loadShape(path);
     grp = RG.centerIn(grp, g);
+    grp.scale(0.8);
     shapes.add(grp);
   }
   
   public void myDraw(PGraphics canvas) {
 
-    super.myDraw(canvas);
+   // super.myDraw(canvas);
+   
+    fill(selectedColor.toARGB(),40);
+     rect(0,0,width,height);
 
     canvas.pushMatrix();
     canvas.translate(width/2, height/2);
