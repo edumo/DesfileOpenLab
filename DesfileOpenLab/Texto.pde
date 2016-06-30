@@ -78,6 +78,11 @@ class Texto implements Scene {
 
   void keyPressed(int key) {
 
+     if (key == '0') {
+      myText1 = "MediaLab";
+      myText2 = "Prado";
+    }
+    
     if (key == '1') {
       myText1 = "Cosiendo";
       myText2 = "Tetuán";

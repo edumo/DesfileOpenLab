@@ -45,7 +45,7 @@ void setup() {
   size(1024, 768);
   frameRate(24);
   /* create a new instance of oscP5 using a multicast socket. */
-  oscP5 = new OscP5(this, "192.168.3.255", 7777);
+  oscP5 = new OscP5(this, "192.168.1.255", 7777);
 
  RG.init(this);
   minim = new Minim(this);
@@ -68,7 +68,7 @@ void setup() {
   particulas.load();
 
   currentScene = cosiendoTetuan;
-  currentOverlay = particulas;
+  //currentOverlay = particulas;
   
   currentText = new Texto();
   currentText.load();
@@ -78,7 +78,7 @@ void setup() {
 void draw() {
 
   if (bg)
-    background(100);
+    background(20);
 
   currentScene.myDraw(g);
 
@@ -145,13 +145,20 @@ void oscEvent(OscMessage theOscMessage) {
 
     int param = theOscMessage.get(0).charValue();
 
-    if (param == '1') {
+    if (param == '0') {
+       currentOverlay = null;
+       
+    }else if (param == '1') {
       currentScene = cosiendoTetuan;
+       currentScene.mousePressed();
       bg = false;
+      currentOverlay = null;
     } else if (param == '2') {
       currentScene = vidaCoral;
+      currentOverlay = particulas;
     } else if (param == '3') {
       currentScene = clother;
+       bg = true;
     } else if (param == '4') {
       // currentScene = clother;
       currentOverlay = particulas;
