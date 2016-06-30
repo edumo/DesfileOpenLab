@@ -47,7 +47,7 @@ void setup() {
   size(1024, 768);
   frameRate(24);
   /* create a new instance of oscP5 using a multicast socket. */
-  oscP5 = new OscP5(this, "192.168.1.255", 7777);
+  oscP5 = new OscP5(this, "192.168.3.255", 7777);
 
   RG.init(this);
   minim = new Minim(this);
@@ -199,4 +199,3 @@ void oscEvent(OscMessage theOscMessage) {
 
   println(" typetag: "+theOscMessage.typetag());
 }
-
